@@ -4,7 +4,7 @@ cd "$(dirname "$0")" || exit
 # DS OTA Save Backups
 
 # Configuration
-NDS_IP="196.168.1.230"
+NDS_IP="192.168.1.230"
 NDS_PORT="5000"
 REMOTE_DIR="/roms/games/" # Directory on the NDS to scan
 BACKUP_ROOT="./backups"  # Where to store backups locally
