@@ -10,16 +10,19 @@ BACKUP_DIR="./backups" # Where to store backups locally
 
 echo "[1/3] Downloading saves"
 STAGING_DIR=$(mktemp -d)
+echo "DEBUG: STAGING_DIR: $STAGING_DIR"
 trap 'rm -rf "${STAGING_DIR}"' EXIT
 wget --quiet --show-progress \
 	--recursive -l1 --no-directories \
 	--accept "*.sav" --ignore-case \
+	--read-timeout=6 --tries=7 \
 	-P "${STAGING_DIR}" \
 	"ftp://${NDS_ADDR}${NDS_DIR}"
 
 echo "[2/3] Saving updates"
 TIMESTAMP=$(date +%Y-%m-%d_%H%M)
 mkdir -p "${BACKUP_DIR}"
+shopt -s nocaseglob
 for FILE in "${STAGING_DIR}"/*.sav; do
 	# Guard: Skip if no files found
 	[ -e "$FILE" ] || continue 
@@ -32,6 +35,8 @@ for FILE in "${STAGING_DIR}"/*.sav; do
 
 	echo " Archiving ${FILENAME}"
 	mv "${FILE}" "${BACKUP_DIR}/${FILENAME}.${TIMESTAMP}"
+	touch -d "${TIMESTAMP/_/ }" "${BACKUP_DIR}/${FILENAME}.${TIMESTAMP}"
 done
+shopt -u nocaseglob
 
 echo "[3/3] Backup complete"
