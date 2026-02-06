@@ -10,7 +10,7 @@ Downloads new/changed `.sav` files from your modded DS (via ftp), creates timest
 - wget
 
 **DS**
-- Ftp homebrew, such as [ftpd](https://github.com/mtheall/ftpd)
+- FTP server homebrew, such as [ftpd](https://github.com/mtheall/ftpd)
 
 > [!TIP]
 > If you need help connecting to your DS Lite, read [DS Lite Private AP](https://github.com/Inevitabby/DS-Lite-Private-AP)
