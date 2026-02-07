@@ -14,7 +14,7 @@ Downloads `.sav` files from a modded DS, compared them against latest local back
 
 # Usage
 
-1. Open backup.sh and configure the following variables:
+1. Open `NDS_BACKUP` and configure the following variables:
 	- `NDS_ADDR`: IP address and port of the DS
 	- `NDS_DIR`: Path to the save directory on the DS
 2. Ensure your computer and DS are on the same network.
