@@ -22,11 +22,8 @@ wget --quiet --show-progress \
 echo "[2/3] Saving updates"
 TIMESTAMP=$(date +%Y-%m-%d_%H%M)
 mkdir -p "${BACKUP_DIR}"
-shopt -s nocaseglob
+shopt -s nocaseglob nullglob
 for FILE in "${STAGING_DIR}"/*.sav; do
-	# Guard: Skip if no files found
-	[ -e "$FILE" ] || continue 
-
 	FILENAME=$(basename "${FILE}")
 	LATEST_BACKUP=$(find "${BACKUP_DIR}" -maxdepth 1 -name "${FILENAME}.*" | sort | tail -n 1)
 
@@ -37,6 +34,6 @@ for FILE in "${STAGING_DIR}"/*.sav; do
 	mv "${FILE}" "${BACKUP_DIR}/${FILENAME}.${TIMESTAMP}"
 	touch -d "${TIMESTAMP/_/ }" "${BACKUP_DIR}/${FILENAME}.${TIMESTAMP}"
 done
-shopt -u nocaseglob
+shopt -u nocaseglob nullglob
 
 echo "[3/3] Backup complete"
